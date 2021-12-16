@@ -1,36 +1,39 @@
 spring:
   application:
     name: provider
-  #如果使用Spring Boot 2.1及更高版本时候，需要增加该配置
-  main:
-    allow-bean-definition-overriding: true
-
-# default disable all
-  cloud:
-    nacos:
-      discovery:
-        enabled: false
-        register-enabled: false
-    zookeeper:
-      enabled: false
-    consul:
-      enabled: false
-
-eureka:
-  client:
-    enabled: false
-
----
-#注册中心设置为nacos
-spring:
-  profiles:
-    active: nacos
+    #如果使用Spring Boot 2.1及更高版本时候，需要增加该配置
+    main:
+      allow-bean-definition-overriding: true
   cloud:
     nacos:
       username: nacos
-      password: nacos
-      discovery:
+      password: password
+      config:
+        server-addr: ip:8848
+        namespace: namespace
+        group: group
+        #在 Nacos Spring Cloud 中，dataId 的完整格式如下：${prefix}-${spring.profiles.active}.${file-extension}
+        #1.prefix 默认为 spring.application.name 的值，也可以通过配置项 spring.cloud.nacos.config.prefix来配置
+        #2.spring.profiles.active 即为当前环境对应的 profile，详情可以参考 Spring Boot文档。
+        #注意：当 spring.profiles.active 为空时，对应的连接符 - 也将不存在，dataId 的拼接格式变成 ${prefix}.${file-extension}
+        #3.file-exetension 为配置内容的数据格式，可以通过配置项 spring.cloud.nacos.config.file-extension 来配置。目前只支持 properties 和 yaml 类型。
+        prefix: provider
+        file-extension: yaml
+        #使用nacos注册中心时此处调整为true,可与其他注册中心共同使用
         enabled: true
-        register-enabled: true
-        server-addr: 10.3.8.55:8847,10.3.8.55:8848,10.3.8.55:8849
-
+      discovery:
+        #使用nacos注册中心时此2处调整为true，配置中心不能同时打开两个
+        enabled: false
+        register-enabled: false
+        server-addr: ip:8848
+        namespace: namespace
+        group: group
+    zookeeper:
+      #使用zookeeper注册中心时此处调整为true
+      enabled: true
+      connect-string: ip:2181
+      discovery:
+        #注册到zookeeper的给出目录下，以“/”开头
+        root: /test111
+    consul:
+      enabled: false

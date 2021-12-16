@@ -1,15 +1,14 @@
 dubbo:
+  application:
+    id: provider
   scan:
-    base-packages: com.dp.pyss.spring.cloud.alibaba
+    base-packages: com.dp.pyss.spring.cloud.alibaba.service
   protocols:
     dubbo:
       name: dubbo
       port: -1
-  registry:
-    #值 "spring-cloud://localhost"，说明挂载到 Spring Cloud 注册中心
-    address: spring-cloud://localhost
   cloud:
+    #无此配置时默认订阅所有服务
     subscribed-services: provider
-
 server:
-  port: 8081
+  port: 8078

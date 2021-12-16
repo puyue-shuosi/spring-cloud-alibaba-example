@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.dp.pyss</groupId>
     <artifactId>spring-cloud-alibaba-provider-example</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
     <name>spring-cloud-alibaba-provider-example</name>
     <description>Demo project for Spring Boot</description>
 
@@ -23,20 +23,49 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!-- Zookeeper Service Discovery -->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>
+            <version>${spring-cloud-starter-zookeeper-discovery.version}</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-                    <groupId>org.springframework.cloud</groupId>
+                    <groupId>org.apache.zookeeper</groupId>
+                    <artifactId>zookeeper</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.4.12</version>
+            <optional>true</optional>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-framework</artifactId>
+            <version>${curator.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.dp.pyss</groupId>
             <artifactId>spring-cloud-alibaba-api-example</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -46,12 +75,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 

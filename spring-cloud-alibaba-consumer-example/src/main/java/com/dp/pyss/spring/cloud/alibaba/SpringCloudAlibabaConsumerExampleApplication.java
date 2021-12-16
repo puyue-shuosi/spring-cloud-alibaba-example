@@ -9,7 +9,6 @@ public class SpringCloudAlibabaConsumerExampleApplication {
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(SpringCloudAlibabaConsumerExampleApplication.class)
-                .properties("spring.profiles.active=nacos")
                 .run(args);
     }
 
